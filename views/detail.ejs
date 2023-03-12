@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <h1><%= todo.title %>!</h1>
+    
+    <a href="/toggle-todo/<%= todo.id %>?redirect=detail">
+        <span style="background-color: <%= todo.done ? '#C6F6D5' : '#FEEBC8' %>;">
+            <%= todo.done ? 'Hotovo' : 'Nesplněno' %>
+        </span>
+    </a>
+
+    <a href="/remove-todo/<%= todo.id %>">
+        Odebrat
+    </a>
+
+    
+
+    <form method="post" action="/todo/<%= todo.id %>?redirect=detail">
+      <input type="text" name="title">
+      <button type="submit">Zmenit jmeno</button>
+    </form>
+  </body>
+</html>

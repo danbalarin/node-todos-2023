@@ -26,6 +26,36 @@ app.get('/', (req, res) => {
   })
 })
 
+app.get('/todo/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const todo = todos.filter((todo) => todo.id === id)[0]
+
+  if(!todo) {
+    res.render('404')
+    return
+  }
+
+  res.render('detail', {
+    todo
+  })
+})
+
+app.post('/todo/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const title = req.body.title
+  const todo = todos.filter((todo) => todo.id === id)[0]
+
+  todo.title = title
+
+  const redirect = req.query.redirect
+  if(redirect === 'detail') {
+    res.redirect(`/todo/${todo.id}`)
+    return
+  }
+
+  res.redirect('/')
+})
+
 app.post('/new-todo', (req, res) => {
   const newTodo = {
     id: Math.random(),
@@ -52,6 +82,12 @@ app.get('/toggle-todo/:id', (req, res) => {
   const todo = todos.find((todo) => todo.id === idToToggle)
 
   todo.done = !todo.done
+
+  const redirect = req.query.redirect
+  if(redirect === 'detail') {
+    res.redirect(`/todo/${todo.id}`)
+    return
+  }
 
   res.redirect('/')
 })

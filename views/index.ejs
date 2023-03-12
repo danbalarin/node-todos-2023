@@ -12,10 +12,14 @@
     <ul>
       <% for (const todo of todos) { %>
         <li>
-          <%= todo.title %>
+          <a href="/todo/<%= todo.id %>">
+            <%= todo.title %>
+          </a>
+          &nbsp;
           <a href="/toggle-todo/<%= todo.id %>">
             <%= todo.done ? 'Hotovo' : 'Nesplněno' %>
           </a>
+          &nbsp;
           <a href="/remove-todo/<%= todo.id %>">
             Odebrat
           </a>
