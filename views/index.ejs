@@ -9,8 +9,10 @@
   <body>
     <% if (user) { %>
       <%= user.username %>
+      <a href="/logout">Odhlasit se</a>
     <% } else { %>
       <a href="/register">Registrace</a>
+      <a href="/login">Prihlaseni</a>
     <% } %>
 
     <hr>

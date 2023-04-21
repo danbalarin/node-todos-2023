@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prihlaseni</title>
+</head>
+<body>
+
+  <% if (user) { %>
+    <%= user.username %>
+    <a href="/logout">Odhlasit se</a>
+  <% } else { %>
+    <a href="/register">Registrace</a>
+  <% } %>
+
+  <hr>
+
+  <h1>Prihlaseni</h1>
+
+  <% if (typeof error !== 'undefined') { %>
+    <span style="color: orangered"><%= error %></span>
+  <% } %>
+
+  <form action="/login" method="post">
+    <input type="text" name="username" placeholder="Uživatelské jméno" required>
+    <input type="password" name="password" placeholder="Heslo" required>
+    <button type="submit">Prihlasit se</button>
+  </form>
+
+  <hr>
+
+  <a href="/">Zpět na ToDočka</a>
+</body>
+</html>

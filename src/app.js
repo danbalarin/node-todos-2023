@@ -1,6 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import { createUser, db, getUserByToken } from './database.js'
+import {createUser, db, getUserByPassword, getUserByToken} from './database.js'
 import { sendTodoDeletedToAllConnections, sendTodoToAllConnections, sendTodosToAllConnections } from './websockets.js'
 
 export const app = express()
@@ -124,6 +124,30 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   const user = await createUser(req.body.username, req.body.password)
+
+  res.cookie('token', user.token)
+
+  res.redirect('/')
+})
+
+app.get('/logout', (req, res) => {
+  res.cookie('token', undefined)
+
+  res.redirect('/')
+})
+
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+
+app.post('/login', async (req, res) => {
+  const user = await getUserByPassword(req.body.username, req.body.password)
+
+    if (!user) {
+      return res.status(401).render('login', {
+          error: 'Nesprávné jméno nebo heslo!',
+      })
+    }
 
   res.cookie('token', user.token)
 
