@@ -28,6 +28,10 @@
     <form method="post" action="/new-todo">
       <input type="text" name="title">
       <input type="date" name="deadline" >
+      <% if (user) { %>
+        <label for="private">soukrome</label>
+        <input id="private" type="checkbox" name="private" value="true">
+      <% } %>
       <button type="submit">Přidat TODO</button>
     </form>
 
